@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <PreferenceCategory 
+        android:title="扫描歌曲"
+        android:key="scanMusic">
+	    
+	    <EditTextPreference 
+	        android:key="minDuration"
+	        android:title="过滤最低时长(秒)"
+	        android:defaultValue="30"
+	        android:summary="过滤掉30秒以下的歌曲"/> 
+        
+    </PreferenceCategory>
+
+    
+    <PreferenceCategory 
+        android:title="本程序">
+        
+      <com.willing.android.xyz.view.AboutPreference
+        android:title="关于"
+        android:persistent="false"/>
+      
+      <com.willing.android.xyz.view.QuitPreference
+          android:title = "退出"
+          android:persistent="false" />
+        
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff9933</color>
+
+    <color name="actionbar">#ffff0000</color>
+    <color name="actionbar_tab">#ffee0000</color>
+
+    <color name="small_play">#aaff0000</color>
+
+    <color name="gray">#ff808080</color>
+    <color name="light_gray">#dddddd</color>
+    <color name="dark_gray">#888888</color>
+    <color name="transparent">#00000000</color>
+    <color name="playList_bg">#ffffff</color>
+    <color name="transparent_black">#88000000</color>
+
+</resources>

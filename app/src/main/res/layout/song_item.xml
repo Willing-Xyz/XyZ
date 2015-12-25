@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    >
+    
+    <CheckBox android:id="@+id/cb_checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerVertical="true"/>
+    
+    <RelativeLayout android:id="@+id/ll_tmp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cb_checked">
+ 
+	   	<TextView android:id="@+id/tv_name"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:layout_marginLeft="5dp"
+		   android:layout_marginTop="5dp"
+		   android:textColor="#ff000000"
+		   android:text="@string/unknown"
+	    />
+	   	
+		<LinearLayout 
+		    android:orientation="horizontal"
+		    android:layout_marginBottom="5dp"
+		    android:layout_marginLeft="5dp"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/tv_name"
+		    >
+		    
+		    <TextView android:id="@+id/tv_singer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="@color/gray"
+		        android:text="@string/unknown"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         android:textColor="@color/gray"
+		        android:text=" - "/>
+		    
+		    <TextView android:id="@+id/tv_album"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/unknown"
+		         android:textColor="@color/gray"/>
+		    
+		</LinearLayout>    
+		
+		<ImageButton android:id="@+id/ib_options"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/options"
+		    android:layout_alignParentRight="true"
+		    android:layout_centerVertical="true"
+		    android:padding="10dp"
+		    android:background="#00000000"
+		    android:clickable="false"
+		    />
+		
+		
+     </RelativeLayout> 
+     
+    <View 
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_tmp"
+        android:background="#40ff0000"/>
+ 
+	<GridLayout 
+	   
+	    android:id="@+id/options_panel"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:visibility="gone"
+	    android:columnCount="5"
+	    android:layout_below="@id/divider"
+	    >
+	      
+	      <com.willing.android.xyz.view.ImageAndTextView
+	          android:id="@+id/add_to_catelog"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:src="@drawable/add"
+	          android:text="@string/add_to"
+	          >
+	          
+	      </com.willing.android.xyz.view.ImageAndTextView>
+	      
+		<com.willing.android.xyz.view.ImageAndTextView
+		    android:id="@+id/delete_song"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/delete"
+		    android:text="@string/delete_song"/>
+		
+		<com.willing.android.xyz.view.ImageAndTextView
+		    android:id="@+id/song_info"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" 
+		    android:src="@drawable/info"
+		    android:text="@string/song_info"/>
+	      
+	</GridLayout>
+    
+</RelativeLayout>

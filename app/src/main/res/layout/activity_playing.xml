@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:xyz="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@color/transparent_black"
+    >
+
+    <com.willing.android.xyz.view.LrcView
+    android:id="@+id/lrcView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="#00000000"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    xyz:textColor="#a0a0a0"
+    xyz:curLrcColor="#ffffff"
+    xyz:leading="10dp"
+    xyz:textSize="16sp"
+    />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:id="@+id/ll_tmp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/tv_cur_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/unknown_time"
+                android:textColor="#ffffffff"/>
+
+
+            <TextView
+                android:id="@+id/tv_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/unknown_time"
+                android:textColor="#ffffffff"/>
+
+            <SeekBar
+                android:id="@+id/sb_play_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_toLeftOf="@id/tv_total_time"
+                android:layout_toRightOf="@id/tv_cur_time"
+
+                />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rl_control_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_tmp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageButton
+                android:id="@+id/ib_play_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/play_mode_order"/>
+
+            <ImageButton
+                android:id="@+id/ib_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="#00000000"
+                android:src="@drawable/pre"/>
+
+            <ImageButton
+                android:id="@+id/ib_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/start"
+                android:background="#00000000"/>
+
+            <ImageButton
+                android:id="@+id/ib_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="#00000000"
+                android:src="@drawable/next"/>
+
+            <ImageButton
+                android:id="@+id/ib_play_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:src="@drawable/list"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

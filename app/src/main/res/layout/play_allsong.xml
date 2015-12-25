@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_header"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray"  >
+
+    <TextView android:id="@+id/tv_play_allsong"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:clickable="true"
+              android:padding="10dp"
+              android:textSize="15sp"
+              android:textColor="@android:color/black"
+              android:text="@string/play_allsong"
+              android:background="@drawable/header_bg"/>
+
+</LinearLayout>
+
