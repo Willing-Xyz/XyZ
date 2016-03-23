@@ -58,6 +58,8 @@ public class ParseMusicFile
 
         music.setPath(file.getCanonicalPath());
 
+
+
         return music;
     }
 

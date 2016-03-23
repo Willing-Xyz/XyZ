@@ -73,7 +73,7 @@ public class MusicDbHelper extends SQLiteOpenHelper
                         SINGER + " TEXT , " +
                         ALBUM + " TEXT , " +
                         DURATION + " INTEGER , " +
-                        PATH + " TEXT " + ");";
+                        PATH + " TEXT " +  "UNIQUE" + ");";
 
         String SQL_CREATE_CATEGORY_TABLE =
                 "CREATE TABLE " +
@@ -185,7 +185,7 @@ public class MusicDbHelper extends SQLiteOpenHelper
 
             if (DEBUG)
             {
-                Log.i(TAG, "insert music " + music.getName());
+                Log.i(TAG, "insert music " + music.getName() + " : " + music.getPath());
             }
         }
 

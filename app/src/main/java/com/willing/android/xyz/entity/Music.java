@@ -1,7 +1,7 @@
 package com.willing.android.xyz.entity;
 
 
-public class Music
+public class Music implements Comparable<Music>
 {
 	private String mName;
 	private String mAlbum;
@@ -108,6 +108,11 @@ public class Music
 	{
 		return getPath().hashCode();
 	}
-	
 
+
+	@Override
+	public int compareTo(Music another) {
+
+		return mPath.compareTo(another.getPath());
+	}
 }

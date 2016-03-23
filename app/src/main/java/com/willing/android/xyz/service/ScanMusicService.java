@@ -2,6 +2,7 @@ package com.willing.android.xyz.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Environment;
 import android.util.Log;
 
 import com.willing.android.xyz.App;
@@ -58,7 +59,7 @@ public class ScanMusicService extends IntentService
 	{
 		mMusics.clear();
 		
-		scanFile(File.listRoots()[0]);
+		scanFile(Environment.getExternalStorageDirectory());
 		
 		MusicDbHelper.clearMusic(this);
 		
@@ -81,7 +82,7 @@ public class ScanMusicService extends IntentService
 				@Override
 				public boolean accept(File pathname)
 				{
-					if (mApp != null && mApp.isContainInFilterPath(pathname))
+					if ((mApp != null && mApp.isContainInFilterPath(pathname)) || pathname.getName().startsWith("."))
 					{
 						return false;
 					}

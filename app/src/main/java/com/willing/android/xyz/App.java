@@ -74,6 +74,7 @@ public class App extends Application
         mFilterPath.add(new File("/proc"));
         mFilterPath.add(new File("/data"));
         mFilterPath.add(new File("/dev"));
+
         mScanMinDuration = 30;
 
         startMusicService();
