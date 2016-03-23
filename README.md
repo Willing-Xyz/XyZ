@@ -8,7 +8,7 @@
 
 ## 截图
 
-![](./screenshots/1.pgn)
-![](./screenshots/2.pgn)
-![](./screenshots/3.pgn)
-![](./screenshots/4.pgn)
+![](./screenshots/1.png)
+![](./screenshots/2.png)
+![](./screenshots/3.png)
+![](./screenshots/4.png)
