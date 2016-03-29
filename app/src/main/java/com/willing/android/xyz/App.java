@@ -26,12 +26,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Created by Willing on 2015/12/9 0009.
  */
 public class App extends Application
 {
     private static App mApp;
+    private static volatile OkHttpClient mOkHttpClient;
 
     // 保存当前active的Activity
     private List<Activity> mActivityList;
@@ -84,6 +87,21 @@ public class App extends Application
         filter.addAction(Intent.ACTION_MEDIA_BUTTON);
         filter.addAction(Intent.CATEGORY_DEFAULT);
         registerReceiver(mRemoteControllReceiver, filter);
+    }
+
+    public static OkHttpClient getOkHttp()
+    {
+        if (mOkHttpClient == null)
+        {
+            synchronized (OkHttpClient.class)
+            {
+                if (mOkHttpClient == null)
+                {
+                    return new OkHttpClient();
+                }
+            }
+        }
+        return mOkHttpClient;
     }
 
     @Override

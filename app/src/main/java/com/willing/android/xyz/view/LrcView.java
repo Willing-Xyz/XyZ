@@ -53,6 +53,7 @@ public class LrcView extends View
 
     private Runnable mLrcCenterTask;
     private Handler mHandler;
+    private String musicName;
 
 
     public LrcView(Context context, AttributeSet attrs) {
@@ -171,6 +172,16 @@ public class LrcView extends View
         if (mLyric == null)
         {
             mLyric = LrcParser.parse(mPath, getWidth() - getPaddingLeft() - getPaddingRight(), mPaint);
+            if (mLyric == null)
+            {
+                LrcParser.fetchFromNet(musicName, getWidth() - getPaddingLeft() - getPaddingRight(), mPaint, new Callback() {
+                    @Override
+                    public void onSuccess(Lyric lyric) {
+                        mLyric = lyric;
+                        postInvalidate();
+                    }
+                });
+            }
         }
         int y = mFontHeight - mPaint.getFontMetricsInt().descent;
         int x = (getWidth() - getPaddingLeft() - getPaddingRight()) / 2 + getPaddingLeft();
@@ -381,6 +392,14 @@ public class LrcView extends View
         return maxHeight;
     }
 
+    public void setMusicName(String musicName) {
+        this.musicName = musicName;
+    }
+
+    public String getMusicName() {
+        return musicName;
+    }
+
 
     private static class LrcCenterTask implements Runnable
     {
@@ -402,6 +421,11 @@ public class LrcView extends View
 
         }
 
+    }
+
+    public interface Callback
+    {
+        void onSuccess(Lyric lyric);
     }
 }
 

@@ -295,6 +295,7 @@ public class PlayingActivity extends BaseActivity
             mTotalTime.setText(TimeUtils.parseDuration(music.getDuration()));
 
             mLrcView.setPath(musicToLrcPath(music.getPath()));
+            mLrcView.setMusicName(music.getName());
 
             mSeekBar.setMax(music.getDuration());
 

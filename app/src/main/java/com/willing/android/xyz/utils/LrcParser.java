@@ -1,8 +1,11 @@
 package com.willing.android.xyz.utils;
 
 import android.graphics.Paint;
+import android.util.Log;
 
+import com.willing.android.xyz.App;
 import com.willing.android.xyz.entity.Lyric;
+import com.willing.android.xyz.view.LrcView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +15,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 解析lrc文件
@@ -49,12 +62,27 @@ public class LrcParser
     		return null;
     	}
 
-        Lyric lyric = new Lyric();
-
         BufferedReader reader = null;
         try
         {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), guessEncoding(file)));
+
+            return parse(reader, viewWidth, paint);
+
+        } catch (IOException e)
+        {
+            return null;
+        }
+
+    }
+
+    private static Lyric parse(BufferedReader reader, int viewWidth, Paint paint)
+    {
+        Lyric lyric = new Lyric();
+
+
+        try
+        {
 
             String str = null;
             while ((str = reader.readLine()) != null)
@@ -85,6 +113,16 @@ public class LrcParser
         return lyric;
     }
 
+    private static Lyric parseString(List lyrics, int viewWidth, Paint paint)
+    {
+        Lyric lyric = new Lyric();
+        for (Iterator<String> ite = lyrics.iterator(); ite.hasNext(); )
+        {
+            parseLine(ite.next(), lyric, viewWidth, paint);
+        }
+        return lyric;
+    }
+
     private static void parseLine(String str, Lyric lyric, int viewWidth, Paint paint)
     {
         str = str.trim();
@@ -93,12 +131,13 @@ public class LrcParser
         {
         	return;
         }
-  
+
         int openBraceIndex = str.indexOf('[');
         int closeBraceIndex = str.indexOf(']');
-        
+
         if (openBraceIndex == -1 || closeBraceIndex == -1 || openBraceIndex >= closeBraceIndex)
         {
+            lyric.addLrc(0, str);
         	return;
         }
 
@@ -219,19 +258,19 @@ public class LrcParser
 
         return time;
     }
-    
+
     private static String guessEncoding(File file)
     {
     	InputStream in = null;
-    	
+
     	try
 		{
 			in = new FileInputStream(file);
-			
+
 			byte[] b = new byte[3];
 			in.read(b);
-		
-			if (b[0] == -17 && b[1] == -69 && b[2] == -65) 
+
+			if (b[0] == -17 && b[1] == -69 && b[2] == -65)
 			{
 				return "UTF-8";
 			}
@@ -239,7 +278,7 @@ public class LrcParser
 			{
 				return "GBK";
 			}
-			
+
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -253,12 +292,92 @@ public class LrcParser
 					in.close();
 				} catch (IOException e)
 				{
-				 
+
 					e.printStackTrace();
 				}
     		}
     	}
-    	
+
     	return "GBK";
     }
+
+    public static void fetchFromNet(String name, final int i, final Paint mPaint, final LrcView.Callback callback) {
+
+        final OkHttpClient client = App.getOkHttp();
+
+
+        FormBody body = new FormBody.Builder()
+                .add("s", name)
+                .add("limit", "1")
+                .add("type", "1")
+                .add("offset", "0")
+                .add("sub", "false")
+                .add("referer", "http://music.163.com")
+                .add("cookie", "appver=1.5.0.75771")
+                .build();
+
+        Request request = new Request.Builder().method("POST", body).url("http://s.music.163.com/search/get/").build();
+
+        try {
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String result = response.body().string();
+                    String id = result.substring(result.indexOf("id") + 4, result.indexOf(",", result.indexOf("id")));
+
+                    Request request = new Request.Builder().url("http://music.163.com/api/song/media?id=" + id).build();
+
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.i("test", e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String result = response.body().string();
+
+                            String lyric = result.substring(result.indexOf("lyric\"") + 8, result.lastIndexOf("code") - 3);
+                            List list = new LinkedList();
+                            int startIndex = 0;
+                            while (startIndex != -1)
+                            {
+                                int endIndex = lyric.indexOf("[", startIndex + 1);
+                                if (endIndex != -1) {
+                                    endIndex = endIndex - 2;
+                                    String str = lyric.substring(startIndex, endIndex);
+                                    startIndex = lyric.indexOf("[", startIndex + 1);
+                                    list.add(str);
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+
+                            if (!list.isEmpty()) {
+                                Lyric lyricResult = parseString(list, i, mPaint);
+
+                                callback.onSuccess(lyricResult);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+
 }
